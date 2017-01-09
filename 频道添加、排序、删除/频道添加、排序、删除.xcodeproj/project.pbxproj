@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		551F63B31E23631C00D95076 /* ChannelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 551F63B21E23631C00D95076 /* ChannelView.m */; };
+		551F63B51E2363A300D95076 /* ChannelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 551F63B41E2363A300D95076 /* ChannelView.xib */; };
 		55380E931E1CF76200E3930B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 55380E921E1CF76200E3930B /* main.m */; };
 		55380E961E1CF76200E3930B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 55380E951E1CF76200E3930B /* AppDelegate.m */; };
 		55380E991E1CF76200E3930B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55380E981E1CF76200E3930B /* ViewController.m */; };
@@ -18,6 +20,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		551F63B11E23631C00D95076 /* ChannelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelView.h; sourceTree = "<group>"; };
+		551F63B21E23631C00D95076 /* ChannelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelView.m; sourceTree = "<group>"; };
+		551F63B41E2363A300D95076 /* ChannelView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChannelView.xib; sourceTree = "<group>"; };
 		55380E8E1E1CF76200E3930B /* 频道添加、排序、删除.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "频道添加、排序、删除.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55380E921E1CF76200E3930B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		55380E941E1CF76200E3930B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -77,6 +82,9 @@
 				55CCCC3B1E1E2DD000924C2B /* ListViewController.m */,
 				55CCCC3D1E1E49D100924C2B /* TopicViewController.h */,
 				55CCCC3E1E1E49D100924C2B /* TopicViewController.m */,
+				551F63B11E23631C00D95076 /* ChannelView.h */,
+				551F63B21E23631C00D95076 /* ChannelView.m */,
+				551F63B41E2363A300D95076 /* ChannelView.xib */,
 			);
 			path = "频道添加、排序、删除";
 			sourceTree = "<group>";
@@ -147,6 +155,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				551F63B51E2363A300D95076 /* ChannelView.xib in Resources */,
 				55380EA11E1CF76200E3930B /* LaunchScreen.storyboard in Resources */,
 				55380E9E1E1CF76200E3930B /* Assets.xcassets in Resources */,
 				55380E9C1E1CF76200E3930B /* Main.storyboard in Resources */,
@@ -164,6 +173,7 @@
 				55380E961E1CF76200E3930B /* AppDelegate.m in Sources */,
 				55CCCC3C1E1E2DD000924C2B /* ListViewController.m in Sources */,
 				55CCCC3F1E1E49D100924C2B /* TopicViewController.m in Sources */,
+				551F63B31E23631C00D95076 /* ChannelView.m in Sources */,
 				55380E931E1CF76200E3930B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

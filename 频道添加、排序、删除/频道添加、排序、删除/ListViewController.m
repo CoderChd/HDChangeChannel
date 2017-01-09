@@ -7,6 +7,20 @@
 //
 
 #import "ListViewController.h"
+#import "ChannelView.h"
+
+#define SCREEN_WIDTH   [UIScreen mainScreen].bounds.size.width
+
+#define SCREENH_HEIGHT [UIScreen mainScreen].bounds.size.height
+
+/** 没行频道的个数 */
+#define ButtonRow 4
+
+/** 边距 */
+#define margin 5
+
+/** 按钮的宽度 */
+#define ButtonW (SCREEN_WIDTH - 2 * margin)/ButtonRow
 
 @interface ListViewController ()
 
@@ -22,30 +36,30 @@
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    btn.frame = CGRectMake(50, 50, 50, 50);
+    btn.frame = CGRectMake(SCREEN_WIDTH - 80, 20, 50, 50);
     
     [btn setTitle:@"关闭" forState:UIControlStateNormal];
     
     [btn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:btn];
+    
+    // 设置我的频道
+    [self setUpMyChannel];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)setUpMyChannel
+{
+    for (int i = 0; i < self.myChannelData.count; i++) {
+        ChannelView *btn = [ChannelView creatChannelView];
+        
+//        btn.frame = CGRectMake(5 + i * ButtonRow * , <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
+        
+        btn.delBtn.hidden = YES;
+        
+    }
 }
-- (void)back{
+- (void)back
+{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

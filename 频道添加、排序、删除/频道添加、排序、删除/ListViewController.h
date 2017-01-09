@@ -10,4 +10,10 @@
 
 @interface ListViewController : UIViewController
 
+/** 我的频道 */
+@property (nonatomic, strong)NSMutableArray *myChannelData;
+
+/** 频道推荐 */
+@property (nonatomic, strong)NSMutableArray *channelRecommend;
+
 @end

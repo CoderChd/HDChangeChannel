@@ -18,7 +18,7 @@
 
 @interface ViewController () <UIScrollViewDelegate>
 
-@property (nonatomic, strong)NSArray *titleArray;
+@property (nonatomic, strong)NSMutableArray *titleArray;
 
 @property (nonatomic , strong)UIButton *selectBtn;
 
@@ -29,14 +29,19 @@
 @end
 
 @implementation ViewController
+- (NSMutableArray *)titleArray
+{
+    if (_titleArray == nil) {
+        _titleArray = [NSMutableArray arrayWithObjects:@"推荐",@"头条",@"热点",@"军事",@"娱乐",@"明星",@"电影",@"体育",@"段子", nil];
+    }
+    return _titleArray;
+}
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
-    self.titleArray = @[@"推荐",@"头条",@"热点",@"军事",@"娱乐",@"明星",@"电影",@"体育",@"段子"];
     
     // 添加子控制器
     [self setUpChildViewController];
@@ -155,6 +160,8 @@
 {
     // 加载频道处理列表
     ListViewController *listView = [[ListViewController alloc] init];
+    
+    listView.myChannelData = self.titleArray;
     
     [self presentViewController:listView animated:YES completion:nil];
     

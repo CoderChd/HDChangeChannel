@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ChannelView">
+            <rect key="frame" x="0.0" y="0.0" width="103" height="63"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标题" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bW8-dD-ALS">
+                    <rect key="frame" x="8" y="8" width="87" height="47"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="del" translatesAutoresizingMaskIntoConstraints="NO" id="WSh-jT-fg6">
+                    <rect key="frame" x="88" y="0.0" width="15" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="K7U-YN-hd3"/>
+                        <constraint firstAttribute="width" constant="15" id="hX0-y8-Gpg"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="WSh-jT-fg6" secondAttribute="trailing" id="7h1-Wc-hqD"/>
+                <constraint firstItem="WSh-jT-fg6" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Gfd-Rv-fQU"/>
+                <constraint firstItem="bW8-dD-ALS" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="SZi-jG-0p1"/>
+                <constraint firstAttribute="trailing" secondItem="bW8-dD-ALS" secondAttribute="trailing" constant="8" id="cdG-JH-YfG"/>
+                <constraint firstAttribute="bottom" secondItem="bW8-dD-ALS" secondAttribute="bottom" constant="8" id="vJf-db-rXL"/>
+                <constraint firstItem="bW8-dD-ALS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="vKf-4z-MU9"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="delBtn" destination="WSh-jT-fg6" id="0Cc-tn-qTf"/>
+                <outlet property="titleName" destination="bW8-dD-ALS" id="SrM-eB-69n"/>
+            </connections>
+            <point key="canvasLocation" x="-186.5" y="-73.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="del" width="15" height="15"/>
+    </resources>
+</document>
