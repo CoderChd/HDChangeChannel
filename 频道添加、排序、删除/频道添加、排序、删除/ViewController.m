@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-//#import "ListViewController.h"
+#import "ListViewController.h"
 #import "TopicViewController.h"
 
 #define SCREEN_WIDTH   [UIScreen mainScreen].bounds.size.width
@@ -31,6 +31,7 @@
 @implementation ViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -45,6 +46,7 @@
 }
 - (void)setUpUI{
 
+    // 标题栏添加
     UIScrollView *titleScr = [[UIScrollView alloc] init];
     
     titleScr.showsHorizontalScrollIndicator = NO;
@@ -53,7 +55,7 @@
     
     self.titleScr = titleScr;
     
-    titleScr.frame = CGRectMake(0, 64, SCREEN_WIDTH, 45);
+    titleScr.frame = CGRectMake(0, 64, SCREEN_WIDTH - TitlesButtonW, 45);
     
     titleScr.backgroundColor = [UIColor brownColor];
     
@@ -68,6 +70,8 @@
     
     // 设置内容部分
     [self setupContentScrollView];
+    
+    [self addBtn];
 }
 - (void)setUpTitleButtons
 {
@@ -132,7 +136,29 @@
         [self addChildViewController:tp];
     }
 }
+- (void)addBtn{
+    
+    UIButton *changeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    changeBtn.frame = CGRectMake(SCREEN_WIDTH - TitlesButtonW, 64, TitlesButtonW, 45);
+    
+    [changeBtn setTitle:@"点我" forState:UIControlStateNormal];
+    
+    [changeBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+    
+    [changeBtn addTarget:self action:@selector(loadChannel) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:changeBtn];
+}
 #pragma mark - 点击事件
+- (void)loadChannel
+{
+    // 加载频道处理列表
+    ListViewController *listView = [[ListViewController alloc] init];
+    
+    [self presentViewController:listView animated:YES completion:nil];
+    
+}
 - (void)titleButtonClick:(UIButton *)btn
 {
     self.selectBtn.selected = NO;
@@ -159,6 +185,9 @@
         //懒加载控制器的view
         [self addChildVcViewIntoScrollView:index];
     }];
+    
+    // 让标题居中
+    [self setUpTitleLabelCenter:btn];
 }
 /**
  *  添加第index个子控制器的view到scrollView中
@@ -174,6 +203,22 @@
     view.frame = self.contentScr.bounds;
     
     [self.contentScr addSubview:view];
+}
+- (void)setUpTitleLabelCenter:(UIButton *)selectBtn
+{
+    if (self.childViewControllers.count * TitlesButtonW <= self.contentScr.bounds.size.width) return;
+    
+    // 计算偏移量
+    CGFloat offsetX = selectBtn.center.x - self.contentScr.bounds.size.width * 0.5;
+    
+    if (offsetX < 0) offsetX = 0;
+    
+    // 获取最大滚动范围
+    CGFloat maxOffsetX = self.titleScr.contentSize.width - self.contentScr.bounds.size.width + TitlesButtonW;
+    
+    if (offsetX > maxOffsetX) offsetX = maxOffsetX;
+    
+    [self.titleScr setContentOffset:CGPointMake(offsetX, 0) animated:YES];
 }
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
