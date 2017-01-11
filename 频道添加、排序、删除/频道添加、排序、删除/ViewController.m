@@ -26,6 +26,8 @@
 
 @property (nonatomic, strong)UIScrollView *contentScr;
 
+@property (nonatomic, strong)NSMutableArray *recommendsArray;
+
 @end
 
 @implementation ViewController
@@ -36,7 +38,13 @@
     }
     return _titleArray;
 }
-
+- (NSMutableArray *)recommendsArray
+{
+    if (_recommendsArray == nil) {
+        _recommendsArray = [NSMutableArray arrayWithObjects:@"标题1",@"标题2",@"标题3",@"标题4",@"标题5",@"标题6",@"标题7",@"标题8",@"标题9",@"标题10",@"标题11",@"标题12",@"标题13",@"标题14",@"标题15",@"标题16",@"标题17",@"标题18",@"标题19",@"标题20",@"标题21", @"标题22",nil];
+    }
+    return _recommendsArray;
+}
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -159,11 +167,14 @@
 - (void)loadChannel
 {
     // 加载频道处理列表
-    ListViewController *listView = [[ListViewController alloc] init];
+    ListViewController *listVC = [[ListViewController alloc] init];
     
-    listView.myChannelData = self.titleArray;
+    listVC.myChannelData = self.titleArray;
     
-    [self presentViewController:listView animated:YES completion:nil];
+    listVC.channelRecommend = self.recommendsArray;
+    
+//    [self presentViewController:listView animated:YES completion:nil];
+    [self.navigationController pushViewController:listVC animated:NO];
     
 }
 - (void)titleButtonClick:(UIButton *)btn
