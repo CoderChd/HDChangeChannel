@@ -13,6 +13,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleName;
 @property (weak, nonatomic) IBOutlet UIImageView *delBtn;
 
+@property (nonatomic, strong) UIPanGestureRecognizer *pan;
+@property (nonatomic, strong) UITapGestureRecognizer *tap;
+@property (nonatomic, strong) UILongPressGestureRecognizer *longPress;
+
 + (instancetype)creatChannelView;
 
 @end

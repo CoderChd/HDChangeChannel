@@ -19,11 +19,11 @@
 /** 边距 */
 #define margin 5
 
-/** 按钮的宽度 */
-#define ButtonW (SCREEN_WIDTH - 2 * margin)/ButtonRow
-
 /** 按钮的高度 */
-#define ButtonH ButtonW * 4/9
+#define ButtonH (ButtonW * 4/9)
+
+/** 按钮的宽度 */
+#define ButtonW ((SCREEN_WIDTH - 2 * margin)/ButtonRow)
 
 @interface ListViewController ()
 
@@ -145,13 +145,47 @@
 -(void)topTapAct:(UITapGestureRecognizer *)tap{
     // 处于编辑状态就是删除频道
     if (self.isEditing) {
+        
+        [self.contentView bringSubviewToFront:self.bottomContentView];
+        
          ChannelView *channel = (ChannelView *)tap.view;
         
+        // 从头部移除
         [self.myChannelView removeObject:channel];
         
         [channel removeFromSuperview];
         
+        // 插入到底部数组中
+        [self.recommendChannelView insertObject:channel atIndex:0];
+        
+        // 找到当前视图的在底部视图上的frame， 做动画效果
+        CGPoint newPoint = [self.topContentView convertPoint:channel.center toView:self.bottomContentView];
+
+        channel.center = newPoint;
+        
+        // 添加到底部视图上
+        [self.bottomContentView addSubview:channel];
+        
+        // 重新布局
         [self refreshTopView];
+        [self refreshBottomView];
+        channel.delBtn.hidden = YES;
+       
+        
+        // 移除所有手势
+        [channel.pan removeTarget:self action:@selector(topPanAct:)];
+        [channel removeGestureRecognizer:channel.pan];
+        channel.pan = nil;
+        
+        [channel.longPress removeTarget:self action:@selector(longTapAct:)];
+        [channel removeGestureRecognizer:channel.longPress];
+        channel.longPress = nil;
+        
+        [channel.tap removeTarget:self action:@selector(topTapAct:)];
+//        [channel.tap addTarget:self action:@selector(bottomTapAct:)];
+        
+    }else{ // 直接跳转
+        
     }
 }
 -(void)longTapAct:(UILongPressGestureRecognizer *)longPress
@@ -308,15 +342,17 @@
         
         [channel addGestureRecognizer:tap];
         
+        channel.tap = tap;
+        
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(topPanAct:)];
         
-        self.pan = pan;
+        channel.pan = pan;
         
         [channel addGestureRecognizer:pan];
         
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longTapAct:)];
         
-        self.longPress = longPress;
+        channel.longPress = longPress;
         
         [channel addGestureRecognizer:longPress];
         
@@ -356,9 +392,11 @@
 {
     self.editing = YES;
     
-    for (int i = 0; i < self.myChannelData.count; i++) {
+    self.edit.selected = YES;
+    
+    for (int i = 0; i < self.myChannelView.count; i++) {
         
-        ChannelView *touchView = self.topContentView.subviews[i];
+        ChannelView *touchView = self.myChannelView[i];
         
         touchView.delBtn.hidden = NO;
     }
@@ -368,9 +406,11 @@
 {
     self.editing = NO;
     
-    for (int i = 0; i < self.myChannelData.count; i++) {
+    self.edit.selected = NO;
+    
+    for (int i = 0; i < self.myChannelView.count; i++) {
         
-        ChannelView *touchView = self.topContentView.subviews[i];
+        ChannelView *touchView = self.myChannelView[i];
         
         touchView.delBtn.hidden = YES;
     }
@@ -387,9 +427,26 @@
 #pragma mark - 重新布局
 -(void)refreshTopView
 {
+    ChannelView *lastView = self.myChannelView.lastObject;
+    
     [UIView animateWithDuration:0.5 animations:^{
+        
+        CGFloat topH = CGRectGetMaxY(lastView.frame);
+        
+        self.topContentView.frame = CGRectMake(0, 40, SCREEN_WIDTH, topH + margin);
+        
         for (int i = 0; i < self.myChannelView.count; ++i) {
             ChannelView *touchView = self.myChannelView[i];
+            touchView.frame = CGRectMake(margin + i%ButtonRow * ButtonW, margin + i/ButtonRow*ButtonH, ButtonW, ButtonH);
+        }
+        
+    }];
+}
+- (void)refreshBottomView
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        for (int i = 0; i < self.recommendChannelView.count; ++i) {
+            ChannelView *touchView = self.recommendChannelView[i];
             touchView.frame = CGRectMake(margin + i%ButtonRow * ButtonW, margin + i/ButtonRow*ButtonH, ButtonW, ButtonH);
         }
     }];
